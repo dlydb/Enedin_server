@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+    <title>My Chart.js Chart</title>
+</head>
+<body>
+    <form id="user_input", onsubmit="return false;">
+        Your energy bill: <input type="number" id="bill"><br>
+        Your house footage: <input type="number" id="footage"><br>
+        <input type="submit" id="submit_input"/>
+    </form>    
+
+    
+    <canvas id="myChart" width="400" height="400"></canvas>
+    <script>
+    var nyAverageEui = 45;
+    var ctx = document.getElementById('myChart');
+    document.getElementById("submit_input").addEventListener("click", function(){
+        otherbuilding();
+    });
+    // And for a doughnut chart
+    renderCustomerChart(); // what should be the starting graph?? right now is NA
+
+    function otherbuilding() {
+        var inputBill = document.getElementById("bill").value;
+        var inputFootage = document.getElementById("footage").value;
+        var inputEui = inputBill/inputFootage;
+        var nyAverageEui = 45;
+        renderCustomerChart(inputEui,nyAverageEui);    
+        renderNyChart();
+    }
+    function renderCustomerChart(inputEui,nyAverageEui){
+        new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Your EUI','NYC Avg EUI'],
+                datasets: [{
+                    label: 'Sample Energy Usage',
+                    data: [inputEui,nyAverageEui],
+                    options:[animateRotate = true],
+
+                    // set up the color of each portion
+                    backgroundColor: [
+                        'rgba(75, 192, 192, 1.5)',
+                        'rgba(75, 192, 192, 0.1)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(75, 192, 192, 2.5)',
+                        'rgba(75, 192, 192, 0.8)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'],
+                    borderWidth: 1
+                }]
+            },
+        });
+    }
+    </script>
+
+</body>
+</html>
+        

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+    <title>My Chart.js Chart</title>
+</head>
+<body>
+    <form id="usage_input", onsubmit="return false;">
+    		Home total spending: <input type="number" id="home"><br>
+            Heating spending: <input type="number" id="heating"><br>
+            Cooling spending: <input type="number" id="cooling"><br>
+            Hot Water spending: <input type="number" id="hotwater"><br>
+            Large Applicances spending: <input type="number" id="largeapp"><br>
+            Small Appliances spending: <input type="number" id="smallapp"><br>
+            Lighting Usage spending: <input type="number" id="lighting"><br>
+            <input type="submit" id="submit_input"/>
+        </form>   
+
+    <canvas id="myChart" width="400" height="400"></canvas>
+    <script>
+    var ctx = document.getElementById('myChart');
+    document.getElementById("submit_input").addEventListener("click", function(){
+        othername();
+    });
+    // And for a doughnut chart
+    renderNewChart();
+
+    function othername() {
+    	var home = document.getElementById("home").value;
+        var heating = document.getElementById("heating").value;
+        var cooling = document.getElementById("cooling").value;
+        var hotWater = document.getElementById("hotwater").value;
+        var largeApp = document.getElementById("largeapp").value;
+        var smallApp = document.getElementById("smallapp").value;
+        var lighting = document.getElementById("lighting").value;
+        renderNewChart(home,heating,cooling,hotWater,largeApp,smallApp,lighting);    
+    }
+    function renderNewChart(home,heating,cooling,hotWater,largeApp,smallApp,lighting){
+        new Chart(ctx, {
+            type: 'horizontalBar',
+            data: {
+                labels: ['home', 'Heating', 'Cooling', 'Hot Water', 'Large Applicances', 'Small Appliances', 'Lighting'],
+                datasets: [{
+                    label: 'Your Energy Usage',
+                    data: [home,heating,cooling,hotWater,largeApp,smallApp,lighting],
+                    options:[animateRotate = true],
+
+                    // set up the color of each portion
+                    backgroundColor: [
+                        'rgba(10, 188, 13, 0.2)',
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(10, 188, 13, 1)',
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'],
+                    borderWidth: 1
+                },
+                {
+                    label: 'NYC Energy Usage',
+                    data: [1500, 200, 300, 500, 200, 50, 250],
+
+                },]
+            },
+        });
+    }
+
+    </script>
+
+</body>
+</html>
+        
